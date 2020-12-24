@@ -65,7 +65,7 @@ class StudentController extends Controller
             $filename = time() . '.' . $ext ;
             $file->move('images', $filename);
         } else {
-            $filename = "image.png";
+            $filename = "defaultImage.png";
         }
 
         Student::create([
@@ -126,7 +126,10 @@ class StudentController extends Controller
             $ext = $file->getClientOriginalExtension() ;
             $filename = time() . '.' . $ext ;
             $file->move('images', $filename);
-        } 
+        }
+        else {
+            $filename = Student::find($id)->image;
+        }
 
         Student::findOrFail($id)->update( [
             "fullname"    =>$request->fullname,
